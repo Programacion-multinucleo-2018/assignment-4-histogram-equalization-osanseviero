@@ -49,5 +49,7 @@ The following table shows the time of execution for a 5760 × 3840 image.
 | 105.973312 | 0.024799 |
 
 Average CPU Time: 106.10260405882ms
+
 Average GPU Time: 0.421094ms
+
 Speedup: 251.968928692
