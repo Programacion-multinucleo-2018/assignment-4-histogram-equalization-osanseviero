@@ -38,6 +38,7 @@ void histogram_equalizer(const cv::Mat& input, cv::Mat& output) {
     // Create output image based on normalized histogram
     std::cout << total_pixels << std::endl;
     for(int i=0; i<total_pixels; i++) {
+	printf("%d ", tid);
         output.data[i] = histogram[input.data[i]];
     }
 }
