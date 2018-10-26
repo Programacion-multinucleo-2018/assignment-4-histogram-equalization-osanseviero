@@ -34,19 +34,20 @@ __global__ void create_histogram(unsigned char* input, int* histogram, int width
     }
     __syncthreads();
 
+    // Copy back to global memory
     if(histogram_index < 256) {
-        atomicAdd(&histogram[histogram_index], block_histogram[histogram_index]);  
+        atomicAdd(&histogram[histogram_index], block_histogram[histogram_index]); 
     }
 }
 
 __global__ void normalize_histogram(int* histogram, int* normalized_histogram, int width, int height, int step) {
     int histogram_idx = threadIdx.x + threadIdx.y * blockDim.x;
-    if(histogram_idx < 256 && blockIdx.x == 0 && blockIdx.y == 0) {
+    if(histogram_idx < 256) {
         long int accumulated = 0;
         for(int i = 0; i <= histogram_idx; i++) {
             accumulated += histogram[i];
         }
-        normalized_histogram[histogram_idx] = accumulated/255;
+        normalized_histogram[histogram_idx] = accumulated*255/(width*height);
     }
 }
 
@@ -90,7 +91,7 @@ void histogram_equalizer(const cv::Mat& input, cv::Mat& output) {
     // Apply histogram equalization
     auto start_cpu =  std::chrono::high_resolution_clock::now();
     create_histogram<<<grid, block>>>(d_input, histogram, input.cols, input.rows, input.step);
-    normalize_histogram<<<grid, block>>>(histogram, normalized_histogram, input.cols, input.rows, input.step);
+    normalize_histogram<<<1, block>>>(histogram, normalized_histogram, input.cols, input.rows, input.step);
     equalizer<<<grid, block>>>(d_input, histogram, d_output, input.cols, input.rows, input.step);
     auto end_cpu =  std::chrono::high_resolution_clock::now();
 
@@ -102,7 +103,7 @@ void histogram_equalizer(const cv::Mat& input, cv::Mat& output) {
     cudaDeviceSynchronize();
 
      // Copy memory from device to host
-    cudaMemcpy(output.ptr(),d_output,bytes,cudaMemcpyDeviceToHost);
+    cudaMemcpy(output.ptr(), d_output,bytes,cudaMemcpyDeviceToHost);
 
     // Free memory
     cudaFree(d_input);
