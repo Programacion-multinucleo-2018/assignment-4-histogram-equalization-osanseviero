@@ -24,3 +24,30 @@ Rubric:
 5. For the GPU version, used shared memory where necessary.
 6. Both images are displayed at the end.
 7. Calculation times and speedup obtained are incuded in the Readme.
+
+## Data
+The following table shows the time of execution for a 5760 × 3840 image. 
+
+|CPU time (ms)| GPU time (ms) |
+|--|--|
+| 106.069519 |0.025589  |
+| 105.909813 | 0.021552 |
+| 106.003456|0.023438  |
+| 105.987000 |0.024585  |
+| 106.028008 |0.025731  |
+| 106.146461 |0.025406  |
+| 106.079681 | 0.024107 |
+| 106.458138 |0.024169  |
+| 106.004974 | 0.024668 |
+| 106.103203 |0.024419  |
+| 106.019058 |0.023254  |
+| 106.132751 |0.023619  |
+| 106.027618 |0.023725  |
+| 106.679283 | 0.024272  |
+| 106.110374 | 0.025185  |
+| 106.011620 | 0.032576  |
+| 105.973312 | 0.024799 |
+
+Average CPU Time: 106.10260405882ms
+Average GPU Time: 0.421094ms
+Speedup: 251.968928692
