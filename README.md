@@ -25,6 +25,8 @@ Rubric:
 6. Both images are displayed at the end.
 7. Calculation times and speedup obtained are incuded in the Readme.
 
+**Grade: 100**
+
 ## Data
 The following table shows the time of execution for a 5760 × 3840 image. 
 

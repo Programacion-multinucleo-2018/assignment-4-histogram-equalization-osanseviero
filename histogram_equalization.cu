@@ -129,6 +129,9 @@ int main(int argc, char *argv[]) {
     namedWindow("Input", cv::WINDOW_NORMAL);
     namedWindow("Output", cv::WINDOW_NORMAL);
 
+    cv::resizeWindow("Input", 800, 600);
+    cv::resizeWindow("Output", 800, 600);
+
     imshow("Input", grayImage);
     imshow("Output", output);
 
